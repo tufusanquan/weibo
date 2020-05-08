@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\Test;
 use App\Models\ActivityEffectiveRelation;
 use App\Models\ActivityEffective;
+use App\Models\Setting;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +15,7 @@ class TestsController extends Controller
 {
     public function test()
     {
-        DB::beginTransaction();
+        /*DB::beginTransaction();
         try {
             //插入活动有效关系记录
             $activity_effective_relation = new ActivityEffectiveRelation();
@@ -25,13 +27,13 @@ class TestsController extends Controller
             DB::insert(
                 'INSERT INTO activity_effectives (user_id,name,uid,effective_count,created_at,updated_at) VALUES (:user_id, :name, :uid, :effective_count, :created_at, :updated_at) ON DUPLICATE KEY UPDATE effective_count = effective_count + 1, updated_at = :update_time',
                 [
-                    'user_id' => 1,
-                    'name'    => 'master',
-                    'uid'     => 10086,
+                    'user_id'         => 1,
+                    'name'            => 'master',
+                    'uid'             => 10086,
                     'effective_count' => 1,
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
-                    'update_time' => Carbon::now(),
+                    'created_at'      => Carbon::now(),
+                    'updated_at'      => Carbon::now(),
+                    'update_time'     => Carbon::now(),
                 ]);
 
             DB::commit();
@@ -43,6 +45,9 @@ class TestsController extends Controller
             Log::info($msg);
 
             return 'fail';
-        }
+        }*/
+
+        dispatch(new Test('test'));
+        return 'success';
     }
 }
